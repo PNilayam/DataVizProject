@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>My Page</title>
+<script src='https://d3js.org/d3.v5.min.js'></script>
+
+<script>
+    const dataset = d3.csv("http://archive.ics.uci.edu/ml/machine-learning-databases/00244/fertility_Diagnosis.txt").then(function(data)
+        {return data;
+        });
+    function showSlide1() {
+        document.getElementById("slide1").setAttribute("style", "visibility: visible;")
+        document.getElementById("slide2").setAttribute("style", "visibility: hidden;")
+        document.getElementById("slide3").setAttribute("style", "visibility: hidden;")
+    }
+
+    function showSlide2() {
+        document.getElementById("slide1").setAttribute("style", "visibility: hidden;")
+        document.getElementById("slide2").setAttribute("style", "visibility: visible;")
+        document.getElementById("slide3").setAttribute("style", "visibility: hidden;")
+    }
+
+    function showSlide3() {
+        document.getElementById("slide1").setAttribute("style", "visibility: hidden;")
+        document.getElementById("slide2").setAttribute("style", "visibility: hidden;")
+        document.getElementById("slide3").setAttribute("style", "visibility: visible;")
+    }
+</script>
+
+<body> My text is a lot of text My text is a lot of text My text is a lot of text My text is a lot of text My text is a
+    lot of text My text is a lot of text My text is a lot of text My text is a lot of text My text is a lot of text
+    </br>
+    </br>
+
+
+    <div id="vizcontent">
+        </br>
+        <div id="info">
+            <div id="slideidx">
+                <a href="#" onclick="dummy()">1</a>
+                <a href="#" onclick="showSlide2()">2</a>
+                <a href="#" onclick="showSlide3()">3</a>
+            </div>
+            <div class="comment">
+
+            </div>
+            </br>
+            Info
+        </div>
+        <div id="slide">
+            <svg></svg>
+        </div>
+    </div>
+</body>
+
+</html>
