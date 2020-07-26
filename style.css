@@ -1,0 +1,37 @@
+body {
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 1%;
+  }
+
+#slide {
+    margin: auto;
+    border: 1px solid black;
+    float: right;
+    width: 72%;
+    height: 100%;
+    padding-top: 1%;
+}
+
+#vizcontent{
+    margin: auto;
+    height: 500px;
+}
+
+#info {
+    margin: auto;
+    border: 1px solid black;
+    width: 25%;
+    float: left;
+    height: 100%;
+    padding-left: 1%;
+    padding-top: 1%;
+}
+
+a {
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    background-color: white;  
+    padding: 2px;
+}
