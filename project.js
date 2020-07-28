@@ -15,6 +15,9 @@ var monthAndDayWise = [[0, 0, 0, 0, 0, 0, 0],
 [0, 0, 0, 0, 0, 0, 0],
 [0, 0, 0, 0, 0, 0, 0]];
 
+function updateSlideNum(slideIdx){
+    document.getElementById("slideIdx").innerHTML = slideIdx;
+}
 
 function prepareMonthwiseData(datarow) {
     monthwiseArea[months.indexOf(datarow["month"])] = monthwiseArea[months.indexOf(datarow["month"])] + datarow["area"];
@@ -35,6 +38,7 @@ async function prepareData() {
 }
 
 function showSlide1() {
+    updateSlideNum(1);
     d3.selectAll("svg > *").remove();
     xdomain = [parseInt(Math.min(...monthwiseArea)), parseInt(Math.max(...monthwiseArea))];
     xrange = [0, 100];
@@ -90,14 +94,25 @@ function showSlide1() {
     d3.select(".chartheader").html("Month wise forest area(in acres) under fire");
 }
 
-function updateXAxis(slide) {
-    var svgWidth = document.getElementById("chartId").offsetWidth - 100;
-    var svg = d3.select('svg');
-    xdomain = [parseInt(Math.min(...monthwiseArea)), parseInt(Math.max(...monthwiseArea))];
-    xrange = [0, svgWidth];
-    xs = d3.scaleLinear().domain(xdomain).range(xrange);
-    svg.selectAll("g.x.axis")
-        .call(d3.axisBottom(d3.scaleLinear().domain(xdomain).range([0, svgWidth])));
+function updateXAxis() {
+    var slideIdx = document.getElementById("slideIdx").innerHTML;
+    if (slideIdx === "1"){
+        var svgWidth = document.getElementById("chartId").offsetWidth - 100;
+        var svg = d3.select('svg');
+        xdomain = [parseInt(Math.min(...monthwiseArea)), parseInt(Math.max(...monthwiseArea))];
+        xrange = [0, svgWidth];
+        xs = d3.scaleLinear().domain(xdomain).range(xrange);
+        svg.selectAll("g.x.axis")
+            .call(d3.axisBottom(d3.scaleLinear().domain(xdomain).range([0, svgWidth])));
+    }else{
+        var svgWidth = document.getElementById("chartId").offsetWidth - 100;
+        var svg = d3.select('svg');
+        xdomain = getAreaRange(areaDataSet);
+        xrange = [0, svgWidth];
+        xs = d3.scaleLinear().domain(xdomain).range(xrange);
+        svg.selectAll("g.x.axis")
+        .call(d3.axisBottom(d3.scaleLinear().domain([xdomain[0], Math.exp(xdomain[1])]).range([0, svgWidth])));
+    }
 }
 
 function getAreaRange(areaDataSet) {
@@ -156,7 +171,7 @@ function getRHRange(areaDataSet) {
 }
 
 function showSlide2() {
-
+    updateSlideNum(2);
     areaDataSet = getDataSetWithValidArea();
 
     xdomain = getAreaRange(areaDataSet);
@@ -205,7 +220,7 @@ function showSlide2() {
 }
 
 function showSlide3() {
-
+    updateSlideNum(3);
     areaDataSet = getDataSetWithValidArea();
 
     xdomain = getAreaRange(areaDataSet);

@@ -1,7 +1,7 @@
 body {
     margin-left: 15%;
     margin-right: 15%;
-    margin-top: 1%;
+    margin-top: 2%;
   }
 
 #slide {
@@ -11,6 +11,18 @@ body {
     height: 100%;
     padding-top: 1%;
     border: 1px solid #6F257F;
+}
+
+.vizheader{
+  text-align: center;
+  font-size: x-large;
+  text-decoration: underline;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.vizdetails{
+  font-size: medium;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #vizcontent{
@@ -28,7 +40,7 @@ body {
     border: 1px solid #6F257F;
 }
 
-a {
+#vizcontent a {
     border-style: solid;
     border-color: black;
     border-width: 1px;
@@ -61,4 +73,8 @@ svg {
 
   .chartheader{
       text-align: center;
+  }
+
+  .slideparam{
+    visibility: hidden;
   }
