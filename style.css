@@ -6,11 +6,11 @@ body {
 
 #slide {
     margin: auto;
-    border: 1px solid black;
     float: right;
     width: 72%;
     height: 100%;
     padding-top: 1%;
+    border: 1px solid #6F257F;
 }
 
 #vizcontent{
@@ -20,12 +20,12 @@ body {
 
 #info {
     margin: auto;
-    border: 1px solid black;
     width: 25%;
     float: left;
     height: 100%;
     padding-left: 1%;
     padding-top: 1%;
+    border: 1px solid #6F257F;
 }
 
 a {
@@ -35,3 +35,30 @@ a {
     background-color: white;  
     padding: 2px;
 }
+svg {
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+.tooltip {
+    position: absolute;
+    display: none;
+    min-width: 80px;
+    height: auto;
+    background: none repeat scroll 0 0 #ffffff;
+    border: 1px solid #6F257F;
+    padding: 14px;
+    text-align: left;
+  }
+
+  .tooltip table{
+    width: 100%;
+  }
+
+  .tooltip table tr td{
+    width: "50%";
+  }
+
+  .chartheader{
+      text-align: center;
+  }
