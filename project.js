@@ -1,4 +1,5 @@
 const months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+const monthTicks = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 var dataset = [];
 var monthwiseArea = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -49,7 +50,7 @@ function showSlide1() {
 
     xs = d3.scaleLinear().domain(xdomain).range(xrange);
     ys = d3.scaleLinear().domain(ydomain).range(yrange);
-    ys1 = d3.scaleBand().domain(months).range(yrange);
+    ys1 = d3.scaleBand().domain(monthTicks).range(yrange);
     svg.append("g")
         .attr("transform", "translate(" + 50 + "," + 60 + ")")
         .selectAll('rect')
@@ -205,7 +206,7 @@ function showSlide2() {
     areaDataSet = getDataSetWithValidArea();
 
     xdomain = getAreaRange(areaDataSet);
-    xrange = [0, 800];
+    xrange = [0, 100];
     ydomain = getTempRange(areaDataSet);
     yrange = [0, 380];
 
@@ -226,9 +227,9 @@ function showSlide2() {
         .append("circle")
         .attr("cx", function (d) {
             if (d.area > 1) {
-                return xs(Math.log(d.area));
+                return xs(Math.log(d.area)) * 8;
             } else {
-                return .5;
+                return .5 ;
             }
         })
         .attr("cy", function (d) { return ys(d.temp); })
