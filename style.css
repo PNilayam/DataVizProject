@@ -10,7 +10,7 @@ body {
     width: 72%;
     height: 100%;
     padding-top: 1%;
-    border: 1px solid #6F257F;
+    border: 1px solid black;
 }
 
 .vizheader{
@@ -37,7 +37,7 @@ body {
     height: 100%;
     padding-left: 1%;
     padding-top: 1%;
-    border: 1px solid #6F257F;
+    border: 1px solid black;
 }
 
 #vizcontent a {

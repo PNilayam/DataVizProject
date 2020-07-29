@@ -61,10 +61,13 @@ function showSlide1() {
         .attr('width', function (d, i) { return xs(d) + "%"; })
         .attr('height', ys1.bandwidth() - 2)
         .style('fill', "#348ceb")
+        .on("mouseover", function(d){
+            d3.select(this).style("fill", "#eb8034");
+        })
         .on("mousemove", function (d, i) {
             tooltip
                 .style("left", d3.event.pageX - 10 + "px")
-                .style("top", d3.event.pageY + 50 + "px")
+                .style("top", d3.event.pageY + 20 + "px")
                 .style("display", "block")
                 .html("Total area under fire: " + d.toFixed(2) + "acres"
                     + "</br>"
@@ -78,7 +81,10 @@ function showSlide1() {
                     + "<tr><td>Saturday:</td><td>" + (monthAndDayWise[i][6]).toFixed(2) + "</td></tr></table>"
                 );
         })
-        .on("mouseout", function (d) { tooltip.style("display", "none"); });
+        .on("mouseout", function (d) { 
+            d3.select(this).style("fill", "#348ceb");
+            tooltip.style("display", "none"); 
+        });
 
     d3.select("svg")
         .append("g")
@@ -167,7 +173,7 @@ function getRHRange(areaDataSet) {
             maxRH = rhF;
         }
     }
-    return [minRH, maxRH];
+    return [maxRH, minRH];
 }
 
 function showSlide2() {
@@ -180,7 +186,7 @@ function showSlide2() {
     yrange = [0, 400];
 
 
-
+    var tooltip = d3.select("body").append("div").attr("class", "tooltip");
     xs = d3.scaleLinear().domain(xdomain).range(xrange);
     ys = d3.scaleLinear().domain(ydomain).range(yrange);
     xs1 = d3.scaleLinear().domain([xdomain[0], Math.exp(xdomain[0])]).range(xrange);
@@ -202,7 +208,25 @@ function showSlide2() {
             }
         })
         .attr("cy", function (d) { return ys(d.temp); })
-        .attr("r", function (d) { return d.wind / 5; });
+        .attr("r", function (d) { return d.wind / 5; })
+        .style('fill', "#348ceb")
+        .on("mouseover", function(d){
+            d3.select(this).style("fill", "#eb8034").attr("r", 5);
+            tooltip
+                .style("left", d3.event.pageX - 10 + "px")
+                .style("top", d3.event.pageY + 20 + "px")
+                .style("display", "block")
+                .html("Total area under fire: " + d.area.toFixed(2) + " acres."
+                    + "</br>"
+                    +"Temperture: "+d.temp+" &#8451;"
+                    + "</br>"
+                    +"Wind: "+d.wind+" km/h"
+                );
+        })
+        .on("mouseout", function (d) { 
+            d3.select(this).style("fill", "#348ceb").attr("r", function (d) { return d.wind / 5; });
+            tooltip.style("display", "none"); 
+        });
 
     d3.select("svg")
         .append("g")
@@ -234,7 +258,7 @@ function showSlide3() {
 
     d3.selectAll("svg > *").remove();
     var svg = d3.select('svg');
-
+    var tooltip = d3.select("body").append("div").attr("class", "tooltip");
     svg.append("g")
         .attr("transform", "translate(" + 50 + "," + 50 + ")")
         .selectAll('circle')
@@ -249,7 +273,25 @@ function showSlide3() {
             }
         })
         .attr("cy", function (d) { return ys(d.RH); })
-        .attr("r", function (d) { return 3 + d.rain });
+        .attr("r", function (d) { return 3 + d.rain })
+        .style('fill', "#348ceb")
+        .on("mouseover", function(d){
+            d3.select(this).style("fill", "#eb8034").attr("r", 5);
+            tooltip
+                .style("left", d3.event.pageX - 10 + "px")
+                .style("top", d3.event.pageY + 20 + "px")
+                .style("display", "block")
+                .html("Total area under fire: " + d.area.toFixed(2) + " acres."
+                    + "</br>"
+                    +"Relative humidity: "+d.RH+" %"
+                    + "</br>"
+                    +"Rain: "+d.rain+" mm/m2"
+                );
+        })
+        .on("mouseout", function (d) { 
+            d3.select(this).style("fill", "#348ceb").attr("r", function (d) { return 3 + d.rain; });
+            tooltip.style("display", "none"); 
+        });
 
     d3.select("svg")
         .append("g")
