@@ -78,3 +78,15 @@ svg {
   .slideparam{
     visibility: hidden;
   }
+
+  .xlabel{
+    text-align: center;
+    font-size: small;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  }
+
+  .ylabel{
+    text-anchor: middle;
+    font-size: small;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  }
