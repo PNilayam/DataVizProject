@@ -58,7 +58,9 @@ svg {
     min-width: 80px;
     height: auto;
     background: none repeat scroll 0 0 #ffffff;
-    border: 1px solid #6F257F;
+    border: 2px solid #9f34eb;
+    border-radius: 10px;
+    border-style: ridge;
     padding: 14px;
     text-align: left;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -95,4 +97,13 @@ svg {
   .chartheader{
     font-size: medium;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  }
+
+  .annotation{
+    font-size: small;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .daywise{
+    font-size: smaller;
   }

@@ -38,6 +38,75 @@ async function prepareData() {
     showSlide1();
 }
 
+/*function showSlide1() {
+    updateSlideNum(1);
+    d3.selectAll("svg > *").remove();
+    xdomain = [parseInt(Math.min(...monthwiseArea)), parseInt(Math.max(...monthwiseArea))];
+    xrange = [0, 100];
+    ydomain = [1, 12];
+    yrange = [0, 380];
+    var tooltip = d3.select("body").append("div").attr("class", "tooltip");
+    var svg = d3.select('svg');
+
+    xs = d3.scaleLinear().domain(xdomain).range(xrange);
+    ys = d3.scaleLinear().domain(ydomain).range(yrange);
+    ys1 = d3.scaleBand().domain(monthTicks).range(yrange);
+
+    d3.select("div#chartId")
+   .append("div")
+   // Container class to make it responsive.
+   .classed("svg-container", true) 
+   .append("svg")
+   // Responsive SVG needs these 2 attributes and no width and height attr.
+   .attr("preserveAspectRatio", "xMinYMin meet")
+   .attr("viewBox", "0 0 800 500")
+   // Class to make it responsive.
+   .classed("svg-content-responsive", true)
+   // Fill with a rectangle for visualization.
+   .append("g")
+   .attr("transform", "translate(" + 50 + "," + 60 + ")")
+   .selectAll('rect')
+   .data(monthwiseArea)
+   .enter()
+   .append('rect')
+   .attr('x', 0)
+   .attr('y', function (d, i) { return i * ys1.bandwidth(); })
+   .attr('width', function (d, i) { return xs(d) + "%"; })
+   .attr('height', ys1.bandwidth() - 2)
+   .style('fill', "#348ceb")
+   .on("mouseover", function(d){
+       d3.select(this).style("fill", "#eb8034");
+   })
+   .on("mousemove", function (d, i) {
+       tooltip
+           .style("left", d3.event.pageX - 10 + "px")
+           .style("top", function(d,i){
+               return d3.event.pageY + 20 + "px";
+           }
+           )
+           .style("display", "block")
+           .html("Total area under fire: " + d.toFixed(2) + " acres"
+               + "</br>"
+               + "Daywise observations(aggregated):</br></br>"
+               + "<table><tr><td>Sunday:</td><td>" + (monthAndDayWise[i][0]).toFixed(2) + "</td></tr>"
+               + "<tr><td>Monday:</td><td>" + (monthAndDayWise[i][1]).toFixed(2) + "</td></tr>"
+               + "<tr><td>Tuesday:</td><td>" + (monthAndDayWise[i][2]).toFixed(2) + "</td></tr>"
+               + "<tr><td>Wednesday:</td><td>" + (monthAndDayWise[i][3]).toFixed(2) + "</td></tr>"
+               + "<tr><td>Thursday:</td><td>" + (monthAndDayWise[i][4]).toFixed(2) + "</td></tr>"
+               + "<tr><td>Friday:</td><td>" + (monthAndDayWise[i][5]).toFixed(2) + "</td></tr>"
+               + "<tr><td>Saturday:</td><td>" + (monthAndDayWise[i][6]).toFixed(2) + "</td></tr></table>"
+           );
+   })
+   .on("mouseout", function (d) { 
+       d3.select(this).style("fill", "#348ceb");
+       tooltip.style("display", "none"); 
+   });
+   d3.select("svg")
+        .append("g")
+        .attr("transform", "translate(" + 50 + "," + 60 + ")")
+        .call(d3.axisLeft(ys1));
+}*/
+
 function showSlide1() {
     updateSlideNum(1);
     d3.selectAll("svg > *").remove();
@@ -47,6 +116,20 @@ function showSlide1() {
     yrange = [0, 380];
     var tooltip = d3.select("body").append("div").attr("class", "tooltip");
     var svg = d3.select('svg');
+
+    const defs = svg.append('defs');
+    const areaGradient = defs
+        .append('linearGradient')
+        .attr("gradientUnits","userSpaceOnUse")
+        .attr('id', 'area-gradient');
+    areaGradient
+        .append('stop')
+        .attr('stop-color', '#ffc500')
+        .attr('offset', '0%');
+    areaGradient
+        .append('stop')
+        .attr('stop-color', '#c21500')
+        .attr('offset', '100%');
 
     xs = d3.scaleLinear().domain(xdomain).range(xrange);
     ys = d3.scaleLinear().domain(ydomain).range(yrange);
@@ -61,34 +144,36 @@ function showSlide1() {
         .attr('y', function (d, i) { return i * ys1.bandwidth(); })
         .attr('width', function (d, i) { return xs(d) + "%"; })
         .attr('height', ys1.bandwidth() - 2)
-        .style('fill', "#348ceb")
+        .style('fill', 'url(#area-gradient)')
         .on("mouseover", function(d){
-            d3.select(this).style("fill", "#eb8034");
+            d3.select(this).style("fill", "#9f34eb");
         })
         .on("mousemove", function (d, i) {
             tooltip
                 .style("left", d3.event.pageX - 10 + "px")
                 .style("top", function(d,i){
-                    return d3.event.pageY + 20 + "px";
+                    return d3.event.pageY + 30 + "px";
                 }
                 )
                 .style("display", "block")
                 .html("Total area under fire: " + d.toFixed(2) + " acres"
-                    + "</br>"
-                    + "Daywise observations(aggregated):</br></br>"
+                    + "</br></br>Daywise observations (in acres):</br>"
+                    + "<div class = 'daywise'>"
                     + "<table><tr><td>Sunday:</td><td>" + (monthAndDayWise[i][0]).toFixed(2) + "</td></tr>"
                     + "<tr><td>Monday:</td><td>" + (monthAndDayWise[i][1]).toFixed(2) + "</td></tr>"
                     + "<tr><td>Tuesday:</td><td>" + (monthAndDayWise[i][2]).toFixed(2) + "</td></tr>"
                     + "<tr><td>Wednesday:</td><td>" + (monthAndDayWise[i][3]).toFixed(2) + "</td></tr>"
                     + "<tr><td>Thursday:</td><td>" + (monthAndDayWise[i][4]).toFixed(2) + "</td></tr>"
                     + "<tr><td>Friday:</td><td>" + (monthAndDayWise[i][5]).toFixed(2) + "</td></tr>"
-                    + "<tr><td>Saturday:</td><td>" + (monthAndDayWise[i][6]).toFixed(2) + "</td></tr></table>"
+                    + "<tr><td>Saturday:</td><td>" + (monthAndDayWise[i][6]).toFixed(2) + "</td></tr></table></div>"
                 );
         })
         .on("mouseout", function (d) { 
-            d3.select(this).style("fill", "#348ceb");
+            d3.select(this).style("fill", 'url(#area-gradient)');
             tooltip.style("display", "none"); 
         });
+
+        
 
     d3.select("svg")
         .append("g")
@@ -105,7 +190,7 @@ function showSlide1() {
     svg.append("text")             
         .attr("transform",
               "translate(" + (svgWidth/2+10) + " ," + 
-                             (475) + ")")
+                             475 + ")")
         .attr("class", "xlabel")
         .text("Total area (in acres)");
 
@@ -116,6 +201,16 @@ function showSlide1() {
         .attr("x", -250)
         .attr("dy", "1em")
         .text("Months"); 
+
+    svg.append("text")             
+        .attr("transform",
+              "translate(" + 180 + " ," + 
+                             265 + ")")
+        .attr("class", "annotation")
+        .text("Total area (in acres)");
+
+        
+
 
     d3.select(".chartheader").html("Month wise forest area(in acres) under fire");
 }
@@ -219,6 +314,21 @@ function showSlide2() {
     d3.selectAll("svg > *").remove();
     var svg = d3.select('svg');
 
+    const defs = svg.append('defs');
+    const areaGradient = defs
+        .append('linearGradient')
+        .attr("gradientUnits","userSpaceOnUse")
+        .attr('id', 'area-gradient');
+    areaGradient
+        .append('stop')
+        .attr('stop-color', '#ffc500')
+        .attr('offset', '0%');
+    areaGradient
+        .append('stop')
+        .attr('stop-color', '#c21500')
+        .attr('offset', '100%');
+
+
     svg.append("g")
         .attr("transform", "translate(" + 50 + "," + 60 + ")")
         .selectAll('circle')
@@ -234,9 +344,9 @@ function showSlide2() {
         })
         .attr("cy", function (d) { return ys(d.temp); })
         .attr("r", function (d) { return d.wind / 5; })
-        .style('fill', "#348ceb")
+        .style('fill', 'url(#area-gradient)')
         .on("mouseover", function(d){
-            d3.select(this).style("fill", "#eb8034").attr("r", 5);
+            d3.select(this).style("fill", "#9f34eb").attr("r", 7);
             tooltip
                 .style("left", d3.event.pageX - 10 + "px")
                 .style("top", d3.event.pageY + 20 + "px")
@@ -249,7 +359,7 @@ function showSlide2() {
                 );
         })
         .on("mouseout", function (d) { 
-            d3.select(this).style("fill", "#348ceb").attr("r", function (d) { return d.wind / 5; });
+            d3.select(this).style("fill", 'url(#area-gradient)').attr("r", function (d) { return d.wind / 5; });
             tooltip.style("display", "none"); 
         });
 
@@ -299,6 +409,21 @@ function showSlide3() {
     d3.selectAll("svg > *").remove();
     var svg = d3.select('svg');
     var tooltip = d3.select("body").append("div").attr("class", "tooltip");
+
+    const defs = svg.append('defs');
+    const areaGradient = defs
+        .append('linearGradient')
+        .attr("gradientUnits","userSpaceOnUse")
+        .attr('id', 'area-gradient');
+    areaGradient
+        .append('stop')
+        .attr('stop-color', '#ffc500')
+        .attr('offset', '0%');
+    areaGradient
+        .append('stop')
+        .attr('stop-color', '#c21500')
+        .attr('offset', '100%');
+
     svg.append("g")
         .attr("transform", "translate(" + 50 + "," + 60 + ")")
         .selectAll('circle')
@@ -316,13 +441,13 @@ function showSlide3() {
         .attr("r", function (d) { return 3 + d.rain })
         .style('fill', function (d,i){
             if (d.rain === 0){
-                return "#348ceb";
+                return 'url(#area-gradient)';
             }else{
-                return "#eb3498";
+                return "#009900";
             }
         })
         .on("mouseover", function(d){
-            d3.select(this).style("fill", "#eb8034").attr("r", 5);
+            d3.select(this).style("fill", "#a834eb").attr("r", 7);
             tooltip
                 .style("left", d3.event.pageX - 10 + "px")
                 .style("top", d3.event.pageY + 20 + "px")
@@ -337,9 +462,9 @@ function showSlide3() {
         .on("mouseout", function (d) { 
             d3.select(this).style("fill", function (d,i){
                 if (d.rain === 0){
-                    return "#348ceb";
+                    return 'url(#area-gradient)';
                 }else{
-                    return "#eb3498";
+                    return "#009900";
                 }
             }).attr("r", function (d) { return 3 + d.rain; });
             tooltip.style("display", "none"); 
