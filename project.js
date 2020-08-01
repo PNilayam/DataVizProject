@@ -202,13 +202,6 @@ function showSlide1() {
         .attr("dy", "1em")
         .text("Months"); 
 
-    svg.append("text")             
-        .attr("transform",
-              "translate(" + 180 + " ," + 
-                             265 + ")")
-        .attr("class", "annotation")
-        .text("Total area (in acres)");
-
         
 
 
