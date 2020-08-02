@@ -207,17 +207,43 @@ function showSlide1() {
         .attr("dy", "1em")
         .text("Months");
 
-    svg.append("text")
-        .attr("transform",
-            "translate(" + 180 + " ," +
-            265 + ")")
-        .attr("class", "annotation")
-        .text("Total area (in acres)");
+    
 
-    //d3.select("svg").append("rect").attr("x",20).attr("y",10).attr("width",140).attr("height",10).attr("fill","url(#area-gradient)");
-    //d3.select("svg").append("g").attr("transform","translate(20,20)").call(d3.axisBottom(ys1)).attr("stroke","white").attr("fill","white");
     addLegend(8000);
 
+
+
+    svg.append("line")
+    .style("stroke", "#9f34eb")
+    .style("stroke-width", 2)
+        .attr("x1", xs(monthwiseArea[6])+ 50)
+        .attr("x2", 450)
+        .attr("y1", 265)
+        .attr("y2", 200);
+
+    svg.append("line")
+    .style("stroke", "#9f34eb")
+    .style("stroke-width", 2)
+        .attr("x1", xs(monthwiseArea[7]))
+        .attr("x2", 450)
+        .attr("y1", 300)
+        .attr("y2", 200);
+
+    
+    svg.append("line")
+    .style("stroke", "#9f34eb")
+    .style("stroke-width", 2)
+        .attr("x1", xs(monthwiseArea[8]))
+        .attr("x2", 450)
+        .attr("y1", 330)
+        .attr("y2", 200);
+
+    svg.append("text")
+        .attr("transform",
+            "translate(" + 452 + " ," +
+            205 + ")")
+        .attr("class", "annotation")
+        .text("Months with high impact");
 
     d3.select(".chartheader").html("Month wise forest area(in acres) under fire");
 }
