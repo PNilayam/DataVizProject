@@ -33,9 +33,12 @@ function updateInfo(slideIdx){
         + "</br></br>"
         + "As we can see in the scatterplot, as temperature increases, the incidents of forest fires increases."
         + "</br></br>"
-        + "This may be due to the fact that the temperatures in the months of July, August and Spetember are generally higher compared to other months."
+        + "Most of the incidents are between temperatures of 15&#8451; - 30&#8451;, while there are very few incidents for lower temperatures."
         + "</br></br>"
-        + "There is another interesting pattern to be observed here. On and around weekends, there are more incidents of forest fires."
+        + "Also, with increase in wind speed, the incidents of forest fires increase. In the adjoining scatterplot, wind speed is encoded as the circle radius."
+        + "</br></br>"
+        + "It is also noteworthy that, once temperature is in the range of 15&#8451; - 30&#8451; and wind speed in the range of 15 km/h - 30km/h,"+
+        + "the area of forest under fire does not show a correlation of temperature and wind speed. "
         );
     }else{
         d3.select(".chart-info").html("As we can observe in the chart, there are two obvious patterns in the dataset."
@@ -438,7 +441,7 @@ function showSlide2() {
                 );
         })
         .on("mouseout", function (d) {
-            d3.select(this).style("fill", 'url(#area-gradient)').attr("r", function (d) { return d.wind / 5; });
+            d3.select(this).style("fill", 'url(#area-gradient)').attr("r", function (d) { return 2.8 * Math.log10(d.wind); });
             tooltip.style("display", "none");
         });
 
