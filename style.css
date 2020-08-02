@@ -107,3 +107,19 @@ svg {
   .daywise{
     font-size: smaller;
   }
+
+  .noraintext{
+    font-size: small;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  }
+
+  .raintext{
+    font-size: small;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  }
+
+  .legendtext{
+    text-align: center;
+    font-size: smaller;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  }

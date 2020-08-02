@@ -16,7 +16,7 @@ var monthAndDayWise = [[0, 0, 0, 0, 0, 0, 0],
 [0, 0, 0, 0, 0, 0, 0],
 [0, 0, 0, 0, 0, 0, 0]];
 
-function updateSlideNum(slideIdx){
+function updateSlideNum(slideIdx) {
     document.getElementById("slideIdx").innerHTML = slideIdx;
 }
 
@@ -38,74 +38,79 @@ async function prepareData() {
     showSlide1();
 }
 
-/*function showSlide1() {
-    updateSlideNum(1);
-    d3.selectAll("svg > *").remove();
-    xdomain = [parseInt(Math.min(...monthwiseArea)), parseInt(Math.max(...monthwiseArea))];
-    xrange = [0, 100];
-    ydomain = [1, 12];
-    yrange = [0, 380];
-    var tooltip = d3.select("body").append("div").attr("class", "tooltip");
+function updateLegend(maxVal) {
+    var svgWidth = document.getElementById("chartId").offsetWidth - 100;
     var svg = d3.select('svg');
+    const defs = svg.append('defs');
+    const areaGradient = defs
+        .append('linearGradient')
+        .attr('id', 'gradient-legend');
+    areaGradient
+        .append('stop')
+        .attr('stop-color', '#ffc500')
+        .attr('offset', '0%');
+    areaGradient
+        .append('stop')
+        .attr('stop-color', '#c21500')
+        .attr('offset', '100%');
 
-    xs = d3.scaleLinear().domain(xdomain).range(xrange);
-    ys = d3.scaleLinear().domain(ydomain).range(yrange);
-    ys1 = d3.scaleBand().domain(monthTicks).range(yrange);
+    xs = d3.scaleLinear().domain([0, maxVal]).range([0, svgWidth / 5.5]);
+    svg.select(".legend")
+        .attr("x", svgWidth - svgWidth / 6)
+        .attr("y", 55)
+        .attr("width", svgWidth / 5.5)
+        .attr("height", 10)
+        .attr("fill", "url(#gradient-legend)");
 
-    d3.select("div#chartId")
-   .append("div")
-   // Container class to make it responsive.
-   .classed("svg-container", true) 
-   .append("svg")
-   // Responsive SVG needs these 2 attributes and no width and height attr.
-   .attr("preserveAspectRatio", "xMinYMin meet")
-   .attr("viewBox", "0 0 800 500")
-   // Class to make it responsive.
-   .classed("svg-content-responsive", true)
-   // Fill with a rectangle for visualization.
-   .append("g")
-   .attr("transform", "translate(" + 50 + "," + 60 + ")")
-   .selectAll('rect')
-   .data(monthwiseArea)
-   .enter()
-   .append('rect')
-   .attr('x', 0)
-   .attr('y', function (d, i) { return i * ys1.bandwidth(); })
-   .attr('width', function (d, i) { return xs(d) + "%"; })
-   .attr('height', ys1.bandwidth() - 2)
-   .style('fill', "#348ceb")
-   .on("mouseover", function(d){
-       d3.select(this).style("fill", "#eb8034");
-   })
-   .on("mousemove", function (d, i) {
-       tooltip
-           .style("left", d3.event.pageX - 10 + "px")
-           .style("top", function(d,i){
-               return d3.event.pageY + 20 + "px";
-           }
-           )
-           .style("display", "block")
-           .html("Total area under fire: " + d.toFixed(2) + " acres"
-               + "</br>"
-               + "Daywise observations(aggregated):</br></br>"
-               + "<table><tr><td>Sunday:</td><td>" + (monthAndDayWise[i][0]).toFixed(2) + "</td></tr>"
-               + "<tr><td>Monday:</td><td>" + (monthAndDayWise[i][1]).toFixed(2) + "</td></tr>"
-               + "<tr><td>Tuesday:</td><td>" + (monthAndDayWise[i][2]).toFixed(2) + "</td></tr>"
-               + "<tr><td>Wednesday:</td><td>" + (monthAndDayWise[i][3]).toFixed(2) + "</td></tr>"
-               + "<tr><td>Thursday:</td><td>" + (monthAndDayWise[i][4]).toFixed(2) + "</td></tr>"
-               + "<tr><td>Friday:</td><td>" + (monthAndDayWise[i][5]).toFixed(2) + "</td></tr>"
-               + "<tr><td>Saturday:</td><td>" + (monthAndDayWise[i][6]).toFixed(2) + "</td></tr></table>"
-           );
-   })
-   .on("mouseout", function (d) { 
-       d3.select(this).style("fill", "#348ceb");
-       tooltip.style("display", "none"); 
-   });
-   d3.select("svg")
+    svg.selectAll(".legend-axis")
+        .attr("transform", "translate(" + (svgWidth - svgWidth / 6) + "," + 65 + ")")
+        .call(d3.axisBottom(xs).tickValues([0, maxVal]));
+
+    svg.selectAll(".legendtext")
+        .attr("x", svgWidth - svgWidth / 6 + 20)
+        .attr("y", 50)
+        .text("Area (acres)");
+}
+
+function addLegend(maxVal) {
+    var svgWidth = document.getElementById("chartId").offsetWidth - 100;
+    var svg = d3.select('svg');
+    const defs = svg.append('defs');
+    const areaGradient = defs
+        .append('linearGradient')
+        .attr('id', 'gradient-legend');
+    areaGradient
+        .append('stop')
+        .attr('stop-color', '#ffc500')
+        .attr('offset', '0%');
+    areaGradient
+        .append('stop')
+        .attr('stop-color', '#c21500')
+        .attr('offset', '100%');
+
+    xs = d3.scaleLinear().domain([0, maxVal]).range([0, svgWidth / 5.5]);
+
+    svg
+        .append("rect")
+        .attr("class", "legend")
+        .attr("x", svgWidth - svgWidth / 6)
+        .attr("y", 55)
+        .attr("width", svgWidth / 5.5)
+        .attr("height", 10)
+        .attr("fill", "url(#gradient-legend)");
+
+    svg
         .append("g")
-        .attr("transform", "translate(" + 50 + "," + 60 + ")")
-        .call(d3.axisLeft(ys1));
-}*/
+        .attr("class", "legend-axis")
+        .attr("transform", "translate(" + (svgWidth - svgWidth / 6) + "," + 65 + ")")
+        .call(d3.axisBottom(xs).tickValues([0, maxVal]));
+
+    svg.append("text")
+        .attr("class", "legendtext")
+        .attr("x", svgWidth - svgWidth / 6 + 20)
+        .attr("y", 50)
+        .text("Area (acres)");
+}
 
 function showSlide1() {
     updateSlideNum(1);
@@ -120,7 +125,7 @@ function showSlide1() {
     const defs = svg.append('defs');
     const areaGradient = defs
         .append('linearGradient')
-        .attr("gradientUnits","userSpaceOnUse")
+        .attr("gradientUnits", "userSpaceOnUse")
         .attr('id', 'area-gradient');
     areaGradient
         .append('stop')
@@ -145,13 +150,13 @@ function showSlide1() {
         .attr('width', function (d, i) { return xs(d) + "%"; })
         .attr('height', ys1.bandwidth() - 2)
         .style('fill', 'url(#area-gradient)')
-        .on("mouseover", function(d){
+        .on("mouseover", function (d) {
             d3.select(this).style("fill", "#9f34eb");
         })
         .on("mousemove", function (d, i) {
             tooltip
                 .style("left", d3.event.pageX - 10 + "px")
-                .style("top", function(d,i){
+                .style("top", function (d, i) {
                     return d3.event.pageY + 30 + "px";
                 }
                 )
@@ -168,12 +173,12 @@ function showSlide1() {
                     + "<tr><td>Saturday:</td><td>" + (monthAndDayWise[i][6]).toFixed(2) + "</td></tr></table></div>"
                 );
         })
-        .on("mouseout", function (d) { 
+        .on("mouseout", function (d) {
             d3.select(this).style("fill", 'url(#area-gradient)');
-            tooltip.style("display", "none"); 
+            tooltip.style("display", "none");
         });
 
-        
+
 
     d3.select("svg")
         .append("g")
@@ -187,10 +192,10 @@ function showSlide1() {
         .attr("transform", "translate(" + 50 + "," + 440 + ")")
         .call(d3.axisBottom(d3.scaleLinear().domain(xdomain).range([0, svgWidth])));
 
-    svg.append("text")             
+    svg.append("text")
         .attr("transform",
-              "translate(" + (svgWidth/2+10) + " ," + 
-                             475 + ")")
+            "translate(" + (svgWidth / 2 + 10) + " ," +
+            475 + ")")
         .attr("class", "xlabel")
         .text("Total area (in acres)");
 
@@ -200,9 +205,18 @@ function showSlide1() {
         .attr("y", 5)
         .attr("x", -250)
         .attr("dy", "1em")
-        .text("Months"); 
+        .text("Months");
 
-        
+    svg.append("text")
+        .attr("transform",
+            "translate(" + 180 + " ," +
+            265 + ")")
+        .attr("class", "annotation")
+        .text("Total area (in acres)");
+
+    //d3.select("svg").append("rect").attr("x",20).attr("y",10).attr("width",140).attr("height",10).attr("fill","url(#area-gradient)");
+    //d3.select("svg").append("g").attr("transform","translate(20,20)").call(d3.axisBottom(ys1)).attr("stroke","white").attr("fill","white");
+    addLegend(8000);
 
 
     d3.select(".chartheader").html("Month wise forest area(in acres) under fire");
@@ -210,7 +224,7 @@ function showSlide1() {
 
 function updateXAxis() {
     var slideIdx = document.getElementById("slideIdx").innerHTML;
-    if (slideIdx === "1"){
+    if (slideIdx === "1") {
         var svgWidth = document.getElementById("chartId").offsetWidth - 100;
         var svg = d3.select('svg');
         xdomain = [parseInt(Math.min(...monthwiseArea)), parseInt(Math.max(...monthwiseArea))];
@@ -218,19 +232,26 @@ function updateXAxis() {
         xs = d3.scaleLinear().domain(xdomain).range(xrange);
         svg.selectAll("g.x.axis")
             .call(d3.axisBottom(d3.scaleLinear().domain(xdomain).range([0, svgWidth])));
-        svg.selectAll("g.xlabel")        
+        svg.selectAll(".xlabel")
             .attr("transform",
-                  "translate(" + (svgWidth/2+10) + " ," + 
-                                 (475) + ")")
+                "translate(" + (svgWidth / 2 + 10) + " ," +
+                (475) + ")")
             .text("Total area (in acres)");
-    }else{
+        updateLegend(8000);
+    } else {
         var svgWidth = document.getElementById("chartId").offsetWidth - 100;
         var svg = d3.select('svg');
         xdomain = getAreaRange(areaDataSet);
         xrange = [0, svgWidth];
         xs = d3.scaleLinear().domain(xdomain).range(xrange);
         svg.selectAll("g.x.axis")
-        .call(d3.axisBottom(d3.scaleLinear().domain([xdomain[0], Math.exp(xdomain[1])]).range([0, svgWidth])));
+            .call(d3.axisBottom(d3.scaleLinear().domain([xdomain[0], Math.exp(xdomain[1])]).range([0, svgWidth])));
+        svg.selectAll(".xlabel")
+            .attr("transform",
+                "translate(" + (svgWidth / 2 + 10) + " ," +
+                (475) + ")")
+            .text("Area (in acres)");
+        updateLegend(2700);
     }
 }
 
@@ -310,7 +331,7 @@ function showSlide2() {
     const defs = svg.append('defs');
     const areaGradient = defs
         .append('linearGradient')
-        .attr("gradientUnits","userSpaceOnUse")
+        .attr("gradientUnits", "userSpaceOnUse")
         .attr('id', 'area-gradient');
     areaGradient
         .append('stop')
@@ -330,15 +351,15 @@ function showSlide2() {
         .append("circle")
         .attr("cx", function (d) {
             if (d.area > 1) {
-                return xs(Math.log(d.area)) * 8;
+                return xs(Math.log(d.area)) + "%";
             } else {
-                return .5 ;
+                return .5;
             }
         })
         .attr("cy", function (d) { return ys(d.temp); })
-        .attr("r", function (d) { return d.wind / 5; })
+        .attr("r", function (d) { return 2.8 * Math.log10(d.wind); })
         .style('fill', 'url(#area-gradient)')
-        .on("mouseover", function(d){
+        .on("mouseover", function (d) {
             d3.select(this).style("fill", "#9f34eb").attr("r", 7);
             tooltip
                 .style("left", d3.event.pageX - 10 + "px")
@@ -346,14 +367,14 @@ function showSlide2() {
                 .style("display", "block")
                 .html("Total area under fire: " + d.area.toFixed(2) + " acres."
                     + "</br>"
-                    +"Temperture: "+d.temp+" &#8451;"
+                    + "Temperture: " + d.temp + " &#8451;"
                     + "</br>"
-                    +"Wind: "+d.wind+" km/h"
+                    + "Wind: " + d.wind + " km/h"
                 );
         })
-        .on("mouseout", function (d) { 
+        .on("mouseout", function (d) {
             d3.select(this).style("fill", 'url(#area-gradient)').attr("r", function (d) { return d.wind / 5; });
-            tooltip.style("display", "none"); 
+            tooltip.style("display", "none");
         });
 
     d3.select("svg")
@@ -367,11 +388,11 @@ function showSlide2() {
         .attr("class", "x axis")
         .attr("transform", "translate(" + 50 + "," + 440 + ")")
         .call(d3.axisBottom(d3.scaleLinear().domain([xdomain[0], Math.exp(xdomain[1])]).range([0, svgWidth])));
-        
-    svg.append("text")             
+
+    svg.append("text")
         .attr("transform",
-              "translate(" + (svgWidth/2+10) + " ," + 
-                             (475) + ")")
+            "translate(" + (svgWidth / 2 + 10) + " ," +
+            (475) + ")")
         .attr("class", "xlabel")
         .text("Area (in acres)");
 
@@ -381,7 +402,9 @@ function showSlide2() {
         .attr("y", 5)
         .attr("x", -250)
         .attr("dy", "1em")
-        .text("Temperature ( degree Celcius)"); 
+        .text("Temperature ( degree Celcius)");
+
+    addLegend(2700);
 
     d3.select(".chartheader").html("Impact of Temperature and Wind on Forest area.");
 }
@@ -391,7 +414,7 @@ function showSlide3() {
     areaDataSet = getDataSetWithValidArea();
 
     xdomain = getAreaRange(areaDataSet);
-    xrange = [0, 800];
+    xrange = [0, 100];
     ydomain = getRHRange(areaDataSet);
     yrange = [0, 380];
 
@@ -406,7 +429,7 @@ function showSlide3() {
     const defs = svg.append('defs');
     const areaGradient = defs
         .append('linearGradient')
-        .attr("gradientUnits","userSpaceOnUse")
+        .attr("gradientUnits", "userSpaceOnUse")
         .attr('id', 'area-gradient');
     areaGradient
         .append('stop')
@@ -425,21 +448,21 @@ function showSlide3() {
         .append("circle")
         .attr("cx", function (d) {
             if (d.area > 1) {
-                return xs(Math.log(d.area));
+                return xs(Math.log(d.area)) + "%";
             } else {
                 return .5;
             }
         })
         .attr("cy", function (d) { return ys(d.RH); })
         .attr("r", function (d) { return 3 + d.rain })
-        .style('fill', function (d,i){
-            if (d.rain === 0){
+        .style('fill', function (d, i) {
+            if (d.rain === 0) {
                 return 'url(#area-gradient)';
-            }else{
+            } else {
                 return "#009900";
             }
         })
-        .on("mouseover", function(d){
+        .on("mouseover", function (d) {
             d3.select(this).style("fill", "#a834eb").attr("r", 7);
             tooltip
                 .style("left", d3.event.pageX - 10 + "px")
@@ -447,20 +470,20 @@ function showSlide3() {
                 .style("display", "block")
                 .html("Total area under fire: " + d.area.toFixed(2) + " acres."
                     + "</br>"
-                    +"Relative humidity: "+d.RH+" %"
+                    + "Relative humidity: " + d.RH + " %"
                     + "</br>"
-                    +"Rain: "+d.rain+" mm/m2"
+                    + "Rain: " + d.rain + " mm/m2"
                 );
         })
-        .on("mouseout", function (d) { 
-            d3.select(this).style("fill", function (d,i){
-                if (d.rain === 0){
+        .on("mouseout", function (d) {
+            d3.select(this).style("fill", function (d, i) {
+                if (d.rain === 0) {
                     return 'url(#area-gradient)';
-                }else{
+                } else {
                     return "#009900";
                 }
             }).attr("r", function (d) { return 3 + d.rain; });
-            tooltip.style("display", "none"); 
+            tooltip.style("display", "none");
         });
 
     d3.select("svg")
@@ -475,10 +498,10 @@ function showSlide3() {
         .attr("transform", "translate(" + 50 + "," + 440 + ")")
         .call(d3.axisBottom(d3.scaleLinear().domain([xdomain[0], Math.exp(xdomain[1])]).range([0, svgWidth])));
 
-    svg.append("text")             
+    svg.append("text")
         .attr("transform",
-              "translate(" + (svgWidth/2+10) + " ," + 
-                             (475) + ")")
+            "translate(" + (svgWidth / 2 + 10) + " ," +
+            (475) + ")")
         .attr("class", "xlabel")
         .text("Area (in acres)");
 
@@ -488,7 +511,35 @@ function showSlide3() {
         .attr("y", 5)
         .attr("x", -250)
         .attr("dy", "1em")
-        .text("Relative humidity (%)"); 
+        .text("Relative humidity (%)");
+
+    addLegend(2700);
+
+    svg.append("circle")
+    .attr("class", "rain")
+    .attr("cx", 627)
+    .attr("cy", 90)
+    .attr("fill", "#009900")
+    .attr("r", 7);
+
+    svg.append("text")
+    .attr("class", "raintext")
+    .attr("x", 647)
+    .attr("y", 94)
+    .text("Rain");
+
+    svg.append("circle")
+    .attr("class", "norain")
+    .attr("cx", 627)
+    .attr("cy", 110)
+    .attr("fill", "#ff751a")
+    .attr("r", 7);
+
+    svg.append("text")
+    .attr("class", "noraintext")
+    .attr("x", 647)
+    .attr("y", 114)
+    .text("No Rain");
 
     d3.select(".chartheader").html("Impact of Relative Humidity and Rain on Forest area.");
 }
