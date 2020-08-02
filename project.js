@@ -73,7 +73,7 @@ async function prepareData() {
     for (var i = 0; i < dataset.length; i++) {
         dataset[i].area = parseFloat(dataset[i].area) * 2.47105;
         dataset[i].temp = parseFloat(dataset[i].temp);
-        dataset[i].wind = parseFloat(dataset[i].temp);
+        dataset[i].wind = parseFloat(dataset[i].wind);
         dataset[i].rain = parseFloat(dataset[i].rain);
         dataset[i].RH = parseFloat(dataset[i].RH);
         prepareMonthwiseData(dataset[i]);
@@ -430,7 +430,7 @@ function showSlide2() {
             }
         })
         .attr("cy", function (d) { return ys(d.temp); })
-        .attr("r", function (d) { return 2.8 * Math.log10(d.wind); })
+        .attr("r", function (d) { return 1.5 * Math.log2(d.wind); })
         .style('fill', 'url(#area-gradient)')
         .on("mouseover", function (d) {
             d3.select(this).style("fill", "#9f34eb").attr("r", 7);
@@ -446,7 +446,7 @@ function showSlide2() {
                 );
         })
         .on("mouseout", function (d) {
-            d3.select(this).style("fill", 'url(#area-gradient)').attr("r", function (d) { return 2.8 * Math.log10(d.wind); });
+            d3.select(this).style("fill", 'url(#area-gradient)').attr("r", function (d) { return 1.5 * Math.log2(d.wind); });
             tooltip.style("display", "none");
         });
 
