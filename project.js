@@ -18,8 +18,11 @@ var monthAndDayWise = [[0, 0, 0, 0, 0, 0, 0],
 
 
 function updateInfo(slideIdx){
+    var svgWidth = document.getElementById("chartId").offsetWidth
     if(slideIdx == 1){
-        d3.select(".chart-info").html("As we can observe in the chart, there are two obvious patterns in the dataset."
+        d3.select(".chart-info")
+        .style("font-size", (10 * svgWidth / 800) + "pt")
+        .html("As we can observe in the chart, there are two obvious patterns in the dataset."
         + "</br></br>"
         + "Most of the incidents of forest fire has occured in the months of July, August and Spetember,"
         + "while there are no incidents in the months of January and November."
@@ -29,7 +32,9 @@ function updateInfo(slideIdx){
         + "There is another interesting pattern to be observed here. On and around weekends, there are more incidents of forest fires."
         );
     }else if(slideIdx == 2){
-        d3.select(".chart-info").html("Temperature plays an important role in forest fires."
+        d3.select(".chart-info")
+        .style("font-size", (10 * svgWidth / 800) + "pt")
+        .html("Temperature plays an important role in forest fires."
         + "</br></br>"
         + "As we can see in the scatterplot, as temperature increases, the incidents of forest fires increases."
         + "</br></br>"
@@ -37,8 +42,8 @@ function updateInfo(slideIdx){
         + "</br></br>"
         + "Also, with increase in wind speed, the incidents of forest fires increase. In the adjoining scatterplot, wind speed is encoded as the circle radius."
         + "</br></br>"
-        + "It is also noteworthy that, once temperature is in the range of 15&#8451; - 30&#8451; and wind speed in the range of 15 km/h - 30km/h,"+
-        + "the area of forest under fire does not show a correlation of temperature and wind speed. "
+        + "It is also noteworthy that, once temperature is in the range of 15&#8451; - 30&#8451; and wind speed in the range of 15 km/h - 30km/h, "
+        + "the area of forest under fire does not show a correlation with temperature and wind speed. "
         );
     }else{
         d3.select(".chart-info").html("As we can observe in the chart, there are two obvious patterns in the dataset."
