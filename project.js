@@ -113,6 +113,7 @@ function addLegend(maxVal) {
 }
 
 function showSlide1() {
+    updateSelected(1);
     updateSlideNum(1);
     d3.selectAll("svg > *").remove();
     xdomain = [parseInt(Math.min(...monthwiseArea)), parseInt(Math.max(...monthwiseArea))];
@@ -338,6 +339,7 @@ function getRHRange(areaDataSet) {
 
 function showSlide2() {
     updateSlideNum(2);
+    updateSelected(2);
     areaDataSet = getDataSetWithValidArea();
 
     xdomain = getAreaRange(areaDataSet);
@@ -435,7 +437,34 @@ function showSlide2() {
     d3.select(".chartheader").html("Impact of Temperature and Wind on Forest area.");
 }
 
+function updateSelected(slideIdx){
+    if(slideIdx == 3 ){
+        document.getElementById("slide3").style.color = "white";
+        document.getElementById("slide3").style.backgroundColor = "#9f34eb";
+        document.getElementById("slide1").style.backgroundColor = "#e6e6ff";
+        document.getElementById("slide1").style.color = "black";
+        document.getElementById("slide2").style.backgroundColor = "#e6e6ff";
+        document.getElementById("slide2").style.color = "black";
+    }else if(slideIdx == 2){
+        document.getElementById("slide2").style.color = "white";
+        document.getElementById("slide2").style.backgroundColor = "#9f34eb";
+        document.getElementById("slide1").style.backgroundColor = "#e6e6ff";
+        document.getElementById("slide1").style.color = "black";
+        document.getElementById("slide3").style.backgroundColor = "#e6e6ff";
+        document.getElementById("slide3").style.color = "black";
+    }else{
+        document.getElementById("slide1").style.color = "white";
+        document.getElementById("slide1").style.backgroundColor = "#9f34eb";
+        document.getElementById("slide2").style.backgroundColor = "#e6e6ff";
+        document.getElementById("slide2").style.color = "black";
+        document.getElementById("slide3").style.backgroundColor = "#e6e6ff";
+        document.getElementById("slide3").style.color = "black";
+    }
+}
+
 function showSlide3() {
+    //document.getElementById("slide3").className = "selected";
+    updateSelected(3);
     updateSlideNum(3);
     areaDataSet = getDataSetWithValidArea();
 

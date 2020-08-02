@@ -40,13 +40,26 @@ body {
     border: 1px solid black;
 }
 
+#slideidx{
+  text-align: center;
+  padding: 2%;
+}
+
 #vizcontent a {
     border-style: solid;
     border-color: black;
     border-width: 1px;
-    background-color: white;  
+    background-color: #e6e6ff;  
     padding: 2px;
+    color: #FE6E00;
+    text-decoration:none;
 }
+
+#vizcontent a:hover {
+  background-color: #9f34eb;
+  color: white;
+}
+
 svg {
     padding-left: 1%;
     padding-right: 1%;
