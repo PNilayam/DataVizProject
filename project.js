@@ -40,20 +40,23 @@ function updateInfo(slideIdx){
         + "</br></br>"
         + "Most of the incidents are between temperatures of 15&#8451; - 30&#8451;, while there are very few incidents for lower temperatures."
         + "</br></br>"
+        + "It is also noteworthy that, once temperature is in the range of 15&#8451; - 30&#8451;, "
+        + "the area of forest under fire does not show a correlation with temperature."
+        + "</br></br>"
         + "Also, with increase in wind speed, the area of forest fires increase on an average. In the adjoining scatterplot, wind speed is encoded as the circle radius."
         + "</br></br>"
-        + "It is also noteworthy that, once temperature is in the range of 15&#8451; - 30&#8451; and wind speed in the range of 15 km/h - 30km/h, "
-        + "the area of forest under fire does not show a correlation with temperature and wind speed. "
+        + "An interesting observation is the impact of wind speeds at low temperatures. While, most of the incidents have occured at higher temperatures, "
+        + "there are some incidents even at very low temperatures when wind speed is high."
         );
     }else{
-        d3.select(".chart-info").html("As we can observe in the chart, there are two obvious patterns in the dataset."
+        d3.select(".chart-info").html("In the adjoining scatterplot, incidents of burnt area of forest is plotted against relative humidity."
         + "</br></br>"
-        + "Most of the incidents of forest fire has occured in the months of July, August and Spetember,"
-        + "while there are no incidents in the months of January and November."
+        + "It is fairly evident from the plot, that most of the incidents have occured when relative humidity is 60% or less. "
+        + "However, the burnt area of the incidents are spread mostly horizontally, "
+        + "indicating that humidity has nothing do with how much area gets covered in fire."
         + "</br></br>"
-        + "This may be due to the fact that the temperatures in the months of July, August and Spetember are generally higher compared to other months."
-        + "</br></br>"
-        + "There is another interesting pattern to be observed here. On and around weekends, there are more incidents of forest fires."
+        + "Another interesting observation is that, most of the incidents have occured when there was no rain."
+        + "There are only 2 incidents of forest fire when it rained."
         );
     }
     
