@@ -16,6 +16,41 @@ var monthAndDayWise = [[0, 0, 0, 0, 0, 0, 0],
 [0, 0, 0, 0, 0, 0, 0],
 [0, 0, 0, 0, 0, 0, 0]];
 
+
+function updateInfo(slideIdx){
+    if(slideIdx == 1){
+        d3.select(".chart-info").html("As we can observe in the chart, there are two obvious patterns in the dataset."
+        + "</br></br>"
+        + "Most of the incidents of forest fire has occured in the months of July, August and Spetember,"
+        + "while there are no incidents in the months of January and November."
+        + "</br></br>"
+        + "This may be due to the fact that the temperatures in the months of July, August and Spetember are generally higher compared to other months."
+        + "</br></br>"
+        + "There is another interesting pattern to be observed here. On and around weekends, there are more incidents of forest fires."
+        );
+    }else if(slideIdx == 2){
+        d3.select(".chart-info").html("Temperature plays an important role in forest fires."
+        + "</br></br>"
+        + "As we can see in the scatterplot, as temperature increases, the incidents of forest fires increases."
+        + "</br></br>"
+        + "This may be due to the fact that the temperatures in the months of July, August and Spetember are generally higher compared to other months."
+        + "</br></br>"
+        + "There is another interesting pattern to be observed here. On and around weekends, there are more incidents of forest fires."
+        );
+    }else{
+        d3.select(".chart-info").html("As we can observe in the chart, there are two obvious patterns in the dataset."
+        + "</br></br>"
+        + "Most of the incidents of forest fire has occured in the months of July, August and Spetember,"
+        + "while there are no incidents in the months of January and November."
+        + "</br></br>"
+        + "This may be due to the fact that the temperatures in the months of July, August and Spetember are generally higher compared to other months."
+        + "</br></br>"
+        + "There is another interesting pattern to be observed here. On and around weekends, there are more incidents of forest fires."
+        );
+    }
+    
+}
+
 function updateSlideNum(slideIdx) {
     document.getElementById("slideIdx").innerHTML = slideIdx;
 }
@@ -113,6 +148,7 @@ function addLegend(maxVal) {
 }
 
 function showSlide1() {
+    updateInfo(1);
     updateSelected(1);
     updateSlideNum(1);
     d3.selectAll("svg > *").remove();
@@ -340,6 +376,7 @@ function getRHRange(areaDataSet) {
 function showSlide2() {
     updateSlideNum(2);
     updateSelected(2);
+    updateInfo(2);
     areaDataSet = getDataSetWithValidArea();
 
     xdomain = getAreaRange(areaDataSet);
@@ -463,7 +500,7 @@ function updateSelected(slideIdx){
 }
 
 function showSlide3() {
-    //document.getElementById("slide3").className = "selected";
+    updateInfo(3);
     updateSelected(3);
     updateSlideNum(3);
     areaDataSet = getDataSetWithValidArea();
