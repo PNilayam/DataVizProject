@@ -23,6 +23,7 @@ body {
 .vizdetails{
   font-size: medium;
   font-family: Arial, Helvetica, sans-serif;
+  text-justify: auto;
 }
 
 #vizcontent{
@@ -89,10 +90,6 @@ svg {
     width: "50%";
   }
 
-  .chartheader{
-      text-align: center;
-  }
-
   .slideparam{
     visibility: hidden;
   }
@@ -110,12 +107,19 @@ svg {
   }
   .chartheader{
     font-size: medium;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
   }
 
   .annotation{
     font-size: small;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100px;
+    height: 100px;
+    word-wrap: normal;
+    border: 2px solid #9f34eb;
+    background: none repeat scroll 0 0 #ffffff;
+    position: relative;
   }
 
   .daywise{
@@ -142,4 +146,5 @@ svg {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 11pt;
     padding: 1.5%;
+    text-justify: auto;
   }

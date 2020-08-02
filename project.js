@@ -40,7 +40,7 @@ function updateInfo(slideIdx){
         + "</br></br>"
         + "Most of the incidents are between temperatures of 15&#8451; - 30&#8451;, while there are very few incidents for lower temperatures."
         + "</br></br>"
-        + "Also, with increase in wind speed, the incidents of forest fires increase. In the adjoining scatterplot, wind speed is encoded as the circle radius."
+        + "Also, with increase in wind speed, the area of forest fires increase on an average. In the adjoining scatterplot, wind speed is encoded as the circle radius."
         + "</br></br>"
         + "It is also noteworthy that, once temperature is in the range of 15&#8451; - 30&#8451; and wind speed in the range of 15 km/h - 30km/h, "
         + "the area of forest under fire does not show a correlation with temperature and wind speed. "
@@ -259,33 +259,33 @@ function showSlide1() {
 
 
     svg.append("line")
-    .style("stroke", "#9f34eb")
+    .style("stroke", "#3e423f")
     .style("stroke-width", 2)
         .attr("x1", xs(monthwiseArea[6])+ 50)
-        .attr("x2", 450)
+        .attr("x2", 250)
         .attr("y1", 265)
         .attr("y2", 200);
 
     svg.append("line")
-    .style("stroke", "#9f34eb")
+    .style("stroke", "#3e423f")
     .style("stroke-width", 2)
         .attr("x1", xs(monthwiseArea[7]))
-        .attr("x2", 450)
+        .attr("x2", 250)
         .attr("y1", 300)
         .attr("y2", 200);
 
     
     svg.append("line")
-    .style("stroke", "#9f34eb")
+    .style("stroke", "#3e423f")
     .style("stroke-width", 2)
         .attr("x1", xs(monthwiseArea[8]))
-        .attr("x2", 450)
+        .attr("x2", 250)
         .attr("y1", 330)
         .attr("y2", 200);
 
     svg.append("text")
         .attr("transform",
-            "translate(" + 452 + " ," +
+            "translate(" + 252 + " ," +
             205 + ")")
         .attr("class", "annotation")
         .text("Months with high impact");
@@ -401,6 +401,38 @@ function showSlide2() {
     d3.selectAll("svg > *").remove();
     var svg = d3.select('svg');
 
+    svg
+        .append("ellipse")
+        .attr("cx", 390)
+        .attr("cy", 380)
+        .attr("rx", 100)
+        .attr("fill", "transparent")
+        .attr("stroke", "#3e423f")
+        .attr("stroke-width", "2px")
+        .attr("ry", 40);
+
+    svg.append("line")
+        .style("stroke", "#3e423f")
+        .style("stroke-width", 2)
+        .attr("x1", 490)
+        .attr("x2", 530)
+        .attr("y1", 380)
+        .attr("y2", 380);
+
+    svg.append("text")
+        .attr("transform",
+            "translate(" + 530 + " ," +
+            380 + ")")
+        .attr("class", "annotation")
+        .text("High wind speed resulted in fire");
+
+    svg.append("text")
+        .attr("transform",
+            "translate(" + 530 + " ," +
+            393 + ")")
+        .attr("class", "annotation")
+        .text("incidents even at low temperatures");
+
     const defs = svg.append('defs');
     const areaGradient = defs
         .append('linearGradient')
@@ -476,7 +508,7 @@ function showSlide2() {
         .attr("x", -250)
         .attr("dy", "1em")
         .text("Temperature ( degree Celcius)");
-
+    
     addLegend(2700);
 
     d3.select(".chartheader").html("Impact of Temperature and Wind on Forest area.");
