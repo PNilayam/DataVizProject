@@ -195,7 +195,7 @@ function showSlide1() {
         .append('rect')
         .attr('x', 0)
         .attr('y', function (d, i) { return i * ys1.bandwidth(); })
-        .attr('width', function (d, i) { return xs(d) + "%"; })
+        .attr('width', "0%")
         .attr('height', ys1.bandwidth() - 2)
         .style('fill', 'url(#area-gradient)')
         .on("mouseover", function (d) {
@@ -224,7 +224,10 @@ function showSlide1() {
         .on("mouseout", function (d) {
             d3.select(this).style("fill", 'url(#area-gradient)');
             tooltip.style("display", "none");
-        });
+        })
+        .transition()          
+        .duration(1000)        
+        .attr('width', function (d, i) { return xs(d) + "%"; });
 
 
 
@@ -479,7 +482,7 @@ function showSlide2() {
             }
         })
         .attr("cy", function (d) { return ys(d.temp); })
-        .attr("r", function (d) { return 1.5 * Math.log2(d.wind); })
+        .attr("r", 0)
         .style('fill', 'url(#area-gradient)')
         .on("mouseover", function (d) {
             d3.select(this).style("fill", "#9f34eb").attr("r", 7);
@@ -497,7 +500,10 @@ function showSlide2() {
         .on("mouseout", function (d) {
             d3.select(this).style("fill", 'url(#area-gradient)').attr("r", function (d) { return 1.5 * Math.log2(d.wind); });
             tooltip.style("display", "none");
-        });
+        })
+        .transition()          
+        .duration(1000)        
+        .attr('r', function (d) { return 1.5 * Math.log2(d.wind); });
 
     d3.select("svg")
         .append("g")
@@ -611,7 +617,7 @@ function showSlide3() {
             }
         })
         .attr("cy", function (d) { return ys(d.RH); })
-        .attr("r", function (d) { return 3 + d.rain })
+        .attr("r", 0)
         .style('fill', function (d, i) {
             if (d.rain === 0) {
                 return 'url(#area-gradient)';
@@ -641,7 +647,10 @@ function showSlide3() {
                 }
             }).attr("r", function (d) { return 3 + d.rain; });
             tooltip.style("display", "none");
-        });
+        })
+        .transition()          
+        .duration(1000)        
+        .attr('r', function (d) { return 3 + d.rain });
 
     d3.select("svg")
         .append("g")
