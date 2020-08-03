@@ -298,7 +298,7 @@ function showSlide1() {
             "translate(" + 252 + " ," +
             205 + ")")
         .attr("class", "annotation")
-        .text("Months with high impact");
+        .text("Months with more fire incidents");
 
     d3.select(".chartheader").html("Month wise forest area(in acres) under fire");
 }
