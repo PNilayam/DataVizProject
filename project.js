@@ -528,7 +528,7 @@ function showSlide2() {
     
     addLegend(2700);
 
-    d3.select(".chartheader").html("Impact of Temperature and Wind on Forest area.");
+    d3.select(".chartheader").html("Impact of Temperature and Wind speed on Forest fire");
 }
 
 function updateSelected(slideIdx){
@@ -698,5 +698,5 @@ function showSlide3() {
     .attr("y", 114)
     .text("No Rain");
 
-    d3.select(".chartheader").html("Impact of Relative Humidity and Rain on Forest area.");
+    d3.select(".chartheader").html("Impact of Relative Humidity and Rain on Forest fire");
 }
