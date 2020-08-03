@@ -34,13 +34,12 @@ function updateInfo(slideIdx){
     }else if(slideIdx == 2){
         d3.select(".chart-info")
         .style("font-size", (10 * svgWidth / 800) + "pt")
-        .html("Temperature plays an important role in forest fires."
-        + "</br></br>"
-        + "As we can see in the scatterplot, as temperature increases, the incidents of forest fires increases."
+        .html(
+        "As we can see in the scatterplot, as temperature increases, the incidents of forest fires increases."
         + "</br></br>"
         + "Most of the incidents are between temperatures of 15&#8451; - 30&#8451;, while there are very few incidents for lower temperatures."
         + "</br></br>"
-        + "It is also noteworthy that, once temperature is in the range of 15&#8451; - 30&#8451;, "
+        + "It is also noteworthy that, once temperature is within a range "
         + "the area of forest under fire does not show a correlation with temperature."
         + "</br></br>"
         + "Also, with increase in wind speed, the area of forest fires increase on an average. In the adjoining scatterplot, wind speed is encoded as the circle radius."
@@ -52,6 +51,7 @@ function updateInfo(slideIdx){
         d3.select(".chart-info").html("In the adjoining scatterplot, incidents of burnt area of forest is plotted against relative humidity."
         + "</br></br>"
         + "It is fairly evident from the plot, that most of the incidents have occured when relative humidity is 60% or less. "
+        + "</br></br>"
         + "However, the burnt area of the incidents are spread mostly horizontally, "
         + "indicating that humidity has nothing do with how much area gets covered in fire."
         + "</br></br>"
@@ -248,6 +248,13 @@ function showSlide1() {
         .text("Total area (in acres)");
 
     svg.append("text")
+        .attr("transform",
+            "translate(" + (svgWidth / 2 + 10) + " ," +
+            50 + ")")
+        .attr("class", "hover-msg")
+        .text("[Hover for details]");
+
+    svg.append("text")
         .attr("class", "ylabel")
         .attr("transform", "rotate(-90)")
         .attr("y", 5)
@@ -395,7 +402,7 @@ function showSlide2() {
     ydomain = getTempRange(areaDataSet);
     yrange = [0, 380];
 
-
+    var svgWidth = document.getElementById("chartId").offsetWidth - 100;
     var tooltip = d3.select("body").append("div").attr("class", "tooltip");
     xs = d3.scaleLinear().domain(xdomain).range(xrange);
     ys = d3.scaleLinear().domain(ydomain).range(yrange);
@@ -403,6 +410,13 @@ function showSlide2() {
 
     d3.selectAll("svg > *").remove();
     var svg = d3.select('svg');
+
+    svg.append("text")
+        .attr("transform",
+            "translate(" + (svgWidth / 2 + 10) + " ," +
+            50 + ")")
+        .attr("class", "hover-msg")
+        .text("[Hover for details]");
 
     svg
         .append("ellipse")
@@ -490,7 +504,7 @@ function showSlide2() {
         .attr("transform", "translate(" + 50 + "," + 60 + ")")
         .call(d3.axisLeft(ys));
 
-    var svgWidth = document.getElementById("chartId").offsetWidth - 100;
+    
     d3.select("svg")
         .append("g")
         .attr("class", "x axis")
@@ -560,6 +574,14 @@ function showSlide3() {
     d3.selectAll("svg > *").remove();
     var svg = d3.select('svg');
     var tooltip = d3.select("body").append("div").attr("class", "tooltip");
+    var svgWidth = document.getElementById("chartId").offsetWidth - 100;
+
+    svg.append("text")
+    .attr("transform",
+        "translate(" + (svgWidth / 2 + 10) + " ," +
+        50 + ")")
+    .attr("class", "hover-msg")
+    .text("[Hover for details]");
 
     const defs = svg.append('defs');
     const areaGradient = defs

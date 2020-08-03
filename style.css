@@ -148,3 +148,11 @@ svg {
     padding: 1.5%;
     text-justify: auto;
   }
+
+  .hover-msg{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: small;
+    text-align: center;
+    text-decoration-style: dashed;
+    text-decoration-color: #9f34eb;
+  }
